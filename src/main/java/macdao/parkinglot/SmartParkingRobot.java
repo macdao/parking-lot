@@ -2,17 +2,18 @@ package macdao.parkinglot;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Optional;
 
-public class SmartParkingRobot extends AbstractParkingRobot {
+public class SmartParkingRobot implements ParkingRobot {
+    private final ParkingLot[] parkingLots;
 
     public SmartParkingRobot(ParkingLot... parkingLots) {
-        super(parkingLots);
+        this.parkingLots = parkingLots;
     }
 
-    public Ticket park(Car car) {
+    public Optional<ParkingLot> find() {
         return Arrays.stream(parkingLots)
                 .max(Comparator.comparingInt(ParkingLot::getSpace))
-                .map(p -> p.park(car))
-                .orElseThrow(RuntimeException::new);
+                .filter(ParkingLot::hasSpace);
     }
 }

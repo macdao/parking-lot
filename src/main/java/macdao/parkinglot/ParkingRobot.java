@@ -1,7 +1,7 @@
 package macdao.parkinglot;
 
-public interface ParkingRobot {
-    Ticket park(Car car);
+import java.util.Optional;
 
-    boolean canPark();
+public interface ParkingRobot {
+    Optional<ParkingLot> find();
 }

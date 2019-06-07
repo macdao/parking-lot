@@ -3,57 +3,50 @@ package macdao.parkinglot;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class SimpleParkingRobotTest {
-
     private SimpleParkingRobot parkingRobot;
+    private ParkingLot parkingLot1;
+    private ParkingLot parkingLot2;
 
     @Before
     public void setUp() {
-        final ParkingLot parkingLot1 = new ParkingLot(new ParkingLotId("parking-lot-id-1"), 1);
-        final ParkingLot parkingLot2 = new ParkingLot(new ParkingLotId("parking-lot-id-2"), 1);
+        parkingLot1 = mock(ParkingLot.class);
+        parkingLot2 = mock(ParkingLot.class);
         parkingRobot = new SimpleParkingRobot(parkingLot1, parkingLot2);
     }
 
     @Test
-    public void park_should_to_1st_parking_lot_when_1st_has_space() {
-        final Ticket ticket = parkingRobot.park(new Car());
+    public void find_should_return_1st_parking_lot_when_1st_has_space() {
+        when(parkingLot1.hasSpace()).thenReturn(true);
 
-        assertThat(ticket.getParkingLotId().toString()).isEqualTo("parking-lot-id-1");
+        final Optional<ParkingLot> parkingLot = parkingRobot.find();
+
+        assertThat(parkingLot).containsSame(parkingLot1);
     }
 
     @Test
-    public void park_should_to_2nd_parking_lot_when_1st_has_no_space() {
-        parkingRobot.park(new Car());
+    public void find_should_return_2nd_parking_lot_when_1st_has_no_space() {
+        when(parkingLot1.hasSpace()).thenReturn(false);
+        when(parkingLot2.hasSpace()).thenReturn(true);
 
-        final Ticket ticket = parkingRobot.park(new Car());
+        final Optional<ParkingLot> parkingLot = parkingRobot.find();
 
-        assertThat(ticket.getParkingLotId().toString()).isEqualTo("parking-lot-id-2");
-    }
-
-    @Test(expected = ParkingLotIsFullException.class)
-    public void park_should_fail_when_no_space() {
-        parkingRobot.park(new Car());
-        parkingRobot.park(new Car());
-        parkingRobot.park(new Car());
+        assertThat(parkingLot).containsSame(parkingLot2);
     }
 
     @Test
-    public void can_park_should_return_true_when_parking_lot_have_space() {
-        final ParkingLot parkingLot1 = new ParkingLot(new ParkingLotId("parking-lot-id-1"), 1);
+    public void find_should_return_empty_when_no_space() {
+        when(parkingLot1.hasSpace()).thenReturn(false);
+        when(parkingLot2.hasSpace()).thenReturn(false);
 
-        parkingRobot = new SimpleParkingRobot(parkingLot1);
+        final Optional<ParkingLot> parkingLot = parkingRobot.find();
 
-        assertThat(parkingRobot.canPark()).isTrue();
-    }
-
-    @Test
-    public void can_park_should_return_true_when_parking_lot_have__no_space() {
-        final ParkingLot parkingLot1 = new ParkingLot(new ParkingLotId("parking-lot-id-1"), 0);
-
-        parkingRobot = new SimpleParkingRobot(parkingLot1);
-
-        assertThat(parkingRobot.canPark()).isFalse();
+        assertThat(parkingLot).isEmpty();
     }
 }

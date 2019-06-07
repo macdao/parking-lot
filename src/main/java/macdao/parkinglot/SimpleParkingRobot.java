@@ -1,18 +1,19 @@
 package macdao.parkinglot;
 
 import java.util.Arrays;
+import java.util.Optional;
 
-public class SimpleParkingRobot extends AbstractParkingRobot {
+public class SimpleParkingRobot implements ParkingRobot {
+    private final ParkingLot[] parkingLots;
 
     public SimpleParkingRobot(ParkingLot... parkingLots) {
-        super(parkingLots);
+        this.parkingLots = parkingLots;
     }
 
-    public Ticket park(Car car) {
+    @Override
+    public Optional<ParkingLot> find() {
         return Arrays.stream(parkingLots)
                 .filter(ParkingLot::hasSpace)
-                .findFirst()
-                .map(lot -> lot.park(car))
-                .orElseThrow(ParkingLotIsFullException::new);
+                .findFirst();
     }
 }
