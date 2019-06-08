@@ -1,4 +1,4 @@
-package macdao.parkinglot;
+package macdao.parkinglot.domain.model;
 
 import java.util.Arrays;
 import java.util.Optional;

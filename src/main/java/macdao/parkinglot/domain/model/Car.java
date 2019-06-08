@@ -1,4 +1,4 @@
-package macdao.parkinglot;
+package macdao.parkinglot.domain.model;
 
 public class Car {
     private final CarNumber carNumber;

@@ -1,4 +1,7 @@
-package macdao.parkinglot;
+package macdao.parkinglot.domain;
+
+import macdao.parkinglot.domain.model.Ticket;
+import macdao.parkinglot.domain.model.TicketId;
 
 import java.util.ArrayList;
 import java.util.List;

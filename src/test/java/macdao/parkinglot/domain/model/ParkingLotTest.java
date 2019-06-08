@@ -1,5 +1,7 @@
-package macdao.parkinglot;
+package macdao.parkinglot.domain.model;
 
+import macdao.parkinglot.domain.exception.CarNotFoundException;
+import macdao.parkinglot.domain.exception.ParkingLotIsFullException;
 import org.junit.Before;
 import org.junit.Test;
 

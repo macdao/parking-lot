@@ -1,5 +1,8 @@
-package macdao.parkinglot;
+package macdao.parkinglot.application;
 
+import macdao.parkinglot.domain.TicketRepository;
+import macdao.parkinglot.domain.exception.TicketInvalidException;
+import macdao.parkinglot.domain.model.*;
 import org.junit.Test;
 
 import java.util.Optional;

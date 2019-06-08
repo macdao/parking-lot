@@ -1,4 +1,11 @@
-package macdao.parkinglot;
+package macdao.parkinglot.application;
+
+import macdao.parkinglot.domain.TicketRepository;
+import macdao.parkinglot.domain.exception.ParkingLotIsFullException;
+import macdao.parkinglot.domain.model.Car;
+import macdao.parkinglot.domain.model.ParkingLot;
+import macdao.parkinglot.domain.model.ParkingRobot;
+import macdao.parkinglot.domain.model.Ticket;
 
 import java.util.Arrays;
 import java.util.Optional;

@@ -1,5 +1,7 @@
-package macdao.parkinglot;
+package macdao.parkinglot.application;
 
+import macdao.parkinglot.domain.TicketRepository;
+import macdao.parkinglot.domain.model.*;
 import org.junit.Before;
 import org.junit.Test;
 

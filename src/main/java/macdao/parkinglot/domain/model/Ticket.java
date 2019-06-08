@@ -1,4 +1,4 @@
-package macdao.parkinglot;
+package macdao.parkinglot.domain.model;
 
 public class Ticket {
     private final TicketId id;
