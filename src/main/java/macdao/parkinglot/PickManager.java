@@ -15,6 +15,8 @@ public class PickManager {
         final Ticket ticket = ticketRepository.findById(ticketId)
                 .orElseThrow(TicketInvalidException::new);
 
+        ticketRepository.delete(ticket);
+
         return Arrays.stream(parkingLots)
                 .filter(p -> p.getId().equals(ticket.getParkingLotId()))
                 .findFirst()
