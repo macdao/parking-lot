@@ -15,7 +15,7 @@ public class ParkingManagerTest {
         final ParkingLot parkingLot = mock(ParkingLot.class);
         when(robot.find()).thenReturn(Optional.of(parkingLot));
         final Ticket ticket1 = mock(Ticket.class);
-        final Car car = new Car();
+        final Car car = new Car(new CarNumber("car-number-1"));
         when(parkingLot.park(car)).thenReturn(ticket1);
 
         final ParkingManager parkingManager = new ParkingManager(robot, mock(ParkingRobot.class));
@@ -34,7 +34,7 @@ public class ParkingManagerTest {
         final ParkingLot parkingLot = mock(ParkingLot.class);
         when(robot2.find()).thenReturn(Optional.of(parkingLot));
         final Ticket ticket2 = new Ticket(new ParkingLotId("parking-lot-id-2"));
-        final Car car = new Car();
+        final Car car = new Car(new CarNumber("car-number-1"));
         when(parkingLot.park(car)).thenReturn(ticket2);
 
         final ParkingManager parkingManager = new ParkingManager(robot1, robot2);

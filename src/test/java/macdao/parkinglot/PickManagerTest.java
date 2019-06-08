@@ -11,7 +11,7 @@ public class PickManagerTest {
     public void pick_should_return_car() {
         final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id");
         final Ticket ticket = new Ticket(parkingLotId);
-        final Car carToBeParked = new Car();
+        final Car carToBeParked = new Car(new CarNumber("car-number-1"));
 
         final ParkingLot parkingLot = mock(ParkingLot.class);
         when(parkingLot.pick(ticket)).thenReturn(carToBeParked);
