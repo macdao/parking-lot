@@ -16,13 +16,15 @@ public class ParkingManagerTest {
         when(robot.find()).thenReturn(Optional.of(parkingLot));
         final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id-1");
         when(parkingLot.getId()).thenReturn(parkingLotId);
-        final Car car = new Car(new CarNumber("car-number-1"));
+        final CarNumber carNumber = new CarNumber("car-number-1");
+        final Car car = new Car(carNumber);
 
         final ParkingManager parkingManager = new ParkingManager(robot, mock(ParkingRobot.class));
 
         final Ticket ticket = parkingManager.park(car);
 
         assertThat(ticket.getParkingLotId()).isEqualTo(parkingLotId);
+        assertThat(ticket.getCarNumber()).isEqualTo(carNumber);
     }
 
     @Test

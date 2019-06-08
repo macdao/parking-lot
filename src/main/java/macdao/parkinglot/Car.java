@@ -6,4 +6,8 @@ public class Car {
     public Car(CarNumber carNumber) {
         this.carNumber = carNumber;
     }
+
+    public CarNumber getCarNumber() {
+        return carNumber;
+    }
 }

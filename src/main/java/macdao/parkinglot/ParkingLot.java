@@ -17,11 +17,15 @@ public class ParkingLot {
         return id;
     }
 
+    public Car pick(CarNumber carNumber) {
+        return null;
+    }
+
     public Ticket park(Car car) {
         if (isFull()) {
             throw new ParkingLotIsFullException();
         }
-        final Ticket ticket = new Ticket(id);
+        final Ticket ticket = new Ticket(id, null);
         items.add(new ParkingItem(car, ticket));
         return ticket;
     }

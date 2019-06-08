@@ -14,7 +14,7 @@ public class ParkingManager {
         return find()
                 .map(p -> {
                     p.park(car);
-                    return new Ticket(p.getId());
+                    return new Ticket(p.getId(), car.getCarNumber());
                 })
                 .orElseThrow(ParkingLotIsFullException::new);
     }

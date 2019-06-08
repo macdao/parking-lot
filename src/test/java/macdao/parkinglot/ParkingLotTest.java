@@ -51,7 +51,7 @@ public class ParkingLotTest {
 
     @Test(expected = TicketInvalidException.class)
     public void pick_should_fail_when_ticket_is_invalid() {
-        parkingLot.pick(new Ticket(new ParkingLotId("parking-lot-id-1")));
+        parkingLot.pick(new Ticket(new ParkingLotId("parking-lot-id-1"), null));
     }
 
     @Test
