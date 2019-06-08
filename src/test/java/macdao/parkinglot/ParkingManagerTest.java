@@ -14,15 +14,15 @@ public class ParkingManagerTest {
         final ParkingRobot robot = mock(ParkingRobot.class);
         final ParkingLot parkingLot = mock(ParkingLot.class);
         when(robot.find()).thenReturn(Optional.of(parkingLot));
-        final Ticket ticket1 = mock(Ticket.class);
+        final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id-1");
+        when(parkingLot.getId()).thenReturn(parkingLotId);
         final Car car = new Car(new CarNumber("car-number-1"));
-        when(parkingLot.park(car)).thenReturn(ticket1);
 
         final ParkingManager parkingManager = new ParkingManager(robot, mock(ParkingRobot.class));
 
         final Ticket ticket = parkingManager.park(car);
 
-        assertThat(ticket).isEqualTo(ticket1);
+        assertThat(ticket.getParkingLotId()).isEqualTo(parkingLotId);
     }
 
     @Test
@@ -33,14 +33,14 @@ public class ParkingManagerTest {
         final ParkingRobot robot2 = mock(ParkingRobot.class);
         final ParkingLot parkingLot = mock(ParkingLot.class);
         when(robot2.find()).thenReturn(Optional.of(parkingLot));
-        final Ticket ticket2 = new Ticket(new ParkingLotId("parking-lot-id-2"));
+        final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id-1");
+        when(parkingLot.getId()).thenReturn(parkingLotId);
         final Car car = new Car(new CarNumber("car-number-1"));
-        when(parkingLot.park(car)).thenReturn(ticket2);
 
         final ParkingManager parkingManager = new ParkingManager(robot1, robot2);
 
         final Ticket ticket = parkingManager.park(car);
 
-        assertThat(ticket).isEqualTo(ticket2);
+        assertThat(ticket.getParkingLotId()).isEqualTo(parkingLotId);
     }
 }
