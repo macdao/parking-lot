@@ -34,16 +34,16 @@ public class ParkingLot {
     }
 
 
-    boolean hasSpace() {
+    public boolean hasSpace() {
         return !isFull();
-    }
-
-    private boolean isFull() {
-        return carList.size() == capacity;
     }
 
     public int getSpace() {
         return capacity - carList.size();
+    }
+
+    private boolean isFull() {
+        return carList.size() == capacity;
     }
 
 }

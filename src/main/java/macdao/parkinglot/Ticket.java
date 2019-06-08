@@ -1,8 +1,8 @@
 package macdao.parkinglot;
 
 public class Ticket {
-    private final ParkingLotId parkingLotId;
     private final TicketId id;
+    private final ParkingLotId parkingLotId;
     private final CarNumber carNumber;
 
     public Ticket(ParkingLotId parkingLotId, CarNumber carNumber) {

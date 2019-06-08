@@ -21,9 +21,9 @@ public class ParkingManagerTest {
         final ParkingRobot robot = mock(ParkingRobot.class);
         final ParkingLot parkingLot = mock(ParkingLot.class);
         when(robot.find()).thenReturn(Optional.of(parkingLot));
-        final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id-1");
+        final ParkingLotId parkingLotId = new ParkingLotId();
         when(parkingLot.getId()).thenReturn(parkingLotId);
-        final CarNumber carNumber = new CarNumber("car-number-1");
+        final CarNumber carNumber = new CarNumber();
         final Car car = new Car(carNumber);
 
         final ParkingManager parkingManager = new ParkingManager(ticketRepository, robot, mock(ParkingRobot.class));
@@ -42,9 +42,9 @@ public class ParkingManagerTest {
         final ParkingRobot robot2 = mock(ParkingRobot.class);
         final ParkingLot parkingLot = mock(ParkingLot.class);
         when(robot2.find()).thenReturn(Optional.of(parkingLot));
-        final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id-1");
+        final ParkingLotId parkingLotId = new ParkingLotId();
         when(parkingLot.getId()).thenReturn(parkingLotId);
-        final Car car = new Car(new CarNumber("car-number-1"));
+        final Car car = new Car(new CarNumber());
 
         final ParkingManager parkingManager = new ParkingManager(ticketRepository, robot1, robot2);
 
@@ -58,9 +58,9 @@ public class ParkingManagerTest {
         final ParkingRobot robot = mock(ParkingRobot.class);
         final ParkingLot parkingLot = mock(ParkingLot.class);
         when(robot.find()).thenReturn(Optional.of(parkingLot));
-        final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id-1");
+        final ParkingLotId parkingLotId = new ParkingLotId();
         when(parkingLot.getId()).thenReturn(parkingLotId);
-        final CarNumber carNumber = new CarNumber("car-number-1");
+        final CarNumber carNumber = new CarNumber();
         final Car car = new Car(carNumber);
 
 

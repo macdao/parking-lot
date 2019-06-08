@@ -16,4 +16,8 @@ public class TicketRepository {
     public void save(Ticket ticket) {
         ticketList.add(ticket);
     }
+
+    public void delete(Ticket ticket) {
+        ticketList.remove(ticket);
+    }
 }
