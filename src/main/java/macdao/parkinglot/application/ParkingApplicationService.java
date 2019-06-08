@@ -4,9 +4,10 @@ import macdao.parkinglot.domain.ParkingLotRepository;
 import macdao.parkinglot.domain.ParkingRobotRepository;
 import macdao.parkinglot.domain.TicketRepository;
 import macdao.parkinglot.domain.exception.ParkingLotIsFullException;
-import macdao.parkinglot.domain.model.*;
+import macdao.parkinglot.domain.model.Car;
+import macdao.parkinglot.domain.model.ParkingLot;
+import macdao.parkinglot.domain.model.Ticket;
 
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 

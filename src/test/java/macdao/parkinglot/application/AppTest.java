@@ -32,7 +32,7 @@ public class AppTest {
 
         final Ticket ticket = parkingApplicationService.park(car);
 
-        final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLot1, parkingLot2);
+        final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLotRepository);
         final TicketId id = ticket.getId();
         final Car pick = pickApplicationService.pick(id);
 
