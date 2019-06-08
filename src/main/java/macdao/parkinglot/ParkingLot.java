@@ -6,7 +6,7 @@ import java.util.List;
 public class ParkingLot {
     private final ParkingLotId id;
     private final int capacity;
-    private List<ParkingItem> items = new ArrayList<>();
+    private List<Car> carList = new ArrayList<>();
 
     public ParkingLot(ParkingLotId id, int capacity) {
         this.id = id;
@@ -17,50 +17,33 @@ public class ParkingLot {
         return id;
     }
 
-    public Car pick(CarNumber carNumber) {
-        return null;
-    }
-
-    public Ticket park(Car car) {
+    public void park(Car car) {
         if (isFull()) {
             throw new ParkingLotIsFullException();
         }
-        final Ticket ticket = new Ticket(id, null);
-        items.add(new ParkingItem(car, ticket));
-        return ticket;
+        carList.add(car);
     }
 
-    public Car pick(Ticket ticket) {
-        return items.stream()
-                .filter(item -> item.ticket.equals(ticket))
+    public Car pick(CarNumber carNumber) {
+        final Car result = carList.stream()
+                .filter(car -> car.getCarNumber().equals(carNumber))
                 .findFirst()
-                .map(item -> {
-                    items.remove(item);
-                    return item;
-                })
-                .map((item) -> item.car)
-                .orElseThrow(TicketInvalidException::new);
+                .orElseThrow(CarNotFoundException::new);
+        carList.remove(result);
+        return result;
     }
+
 
     boolean hasSpace() {
         return !isFull();
     }
 
     private boolean isFull() {
-        return items.size() == capacity;
+        return carList.size() == capacity;
     }
 
     public int getSpace() {
-        return capacity - items.size();
+        return capacity - carList.size();
     }
 
-    private static class ParkingItem {
-        private final Car car;
-        private final Ticket ticket;
-
-        private ParkingItem(Car car, Ticket ticket) {
-            this.car = car;
-            this.ticket = ticket;
-        }
-    }
 }

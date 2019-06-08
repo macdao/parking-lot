@@ -16,30 +16,27 @@ public class ParkingLotTest {
 
     @Test
     public void can_park() {
-        final Ticket ticket = parkingLot.park(new Car(new CarNumber("car-number-1")));
-
-        assertThat(ticket).isNotNull();
-        assertThat(ticket.getParkingLotId().toString()).isEqualTo("parking-lot-id-1");
+        parkingLot.park(new Car(new CarNumber("car-number-1")));
     }
 
     @Test
     public void can_pick_car() {
         final Car car = new Car(new CarNumber("car-number-1"));
-        final Ticket ticket = parkingLot.park(car);
+        parkingLot.park(car);
 
-        assertThat(parkingLot.pick(ticket)).isEqualTo(car);
+        assertThat(parkingLot.pick(car.getCarNumber())).isEqualTo(car);
     }
 
     @Test
     public void can_pick_correct_car_when_2_cars_parked() {
         final Car car1 = new Car(new CarNumber("car-number-1"));
-        final Ticket ticket1 = parkingLot.park(car1);
+        parkingLot.park(car1);
 
         final Car car2 = new Car(new CarNumber("car-number-1"));
-        final Ticket ticket2 = parkingLot.park(car2);
+        parkingLot.park(car2);
 
-        assertThat(parkingLot.pick(ticket2)).isEqualTo(car2);
-        assertThat(parkingLot.pick(ticket1)).isEqualTo(car1);
+        assertThat(parkingLot.pick(car2.getCarNumber())).isEqualTo(car2);
+        assertThat(parkingLot.pick(car1.getCarNumber())).isEqualTo(car1);
     }
 
     @Test(expected = ParkingLotIsFullException.class)
@@ -49,9 +46,9 @@ public class ParkingLotTest {
         parkingLot.park(new Car(new CarNumber("car-number-1")));
     }
 
-    @Test(expected = TicketInvalidException.class)
+    @Test(expected = CarNotFoundException.class)
     public void pick_should_fail_when_ticket_is_invalid() {
-        parkingLot.pick(new Ticket(new ParkingLotId("parking-lot-id-1"), null));
+        parkingLot.pick(new CarNumber("invalid-car-number"));
     }
 
     @Test
@@ -61,12 +58,12 @@ public class ParkingLotTest {
         assertThat(parkingLot.getSpace()).isEqualTo(8);
     }
 
-    @Test(expected = TicketInvalidException.class)
+    @Test(expected = CarNotFoundException.class)
     public void pick_should_fail_when_use_ticket_twice() {
         final Car car1 = new Car(new CarNumber("car-number-1"));
-        final Ticket ticket1 = parkingLot.park(car1);
-        parkingLot.pick(ticket1);
+        parkingLot.park(car1);
+        parkingLot.pick(car1.getCarNumber());
 
-        parkingLot.pick(ticket1);
+        parkingLot.pick(car1.getCarNumber());
     }
 }
