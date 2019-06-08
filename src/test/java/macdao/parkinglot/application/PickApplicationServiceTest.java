@@ -25,7 +25,7 @@ public class PickApplicationServiceTest {
     @Test
     public void pick_should_return_car() {
         final ParkingLotId parkingLotId = new ParkingLotId();
-        final CarNumber carNumber = new CarNumber();
+        final CarNumber carNumber = new CarNumber("car-number-1");
         final Ticket ticket = new Ticket(parkingLotId, carNumber);
 
         when(ticketRepository.findById(ticket.getId())).thenReturn(Optional.of(ticket));
@@ -52,7 +52,7 @@ public class PickApplicationServiceTest {
     @Test
     public void pick_should_remove_ticket_from_repo() {
         final ParkingLotId parkingLotId = new ParkingLotId();
-        final CarNumber carNumber = new CarNumber();
+        final CarNumber carNumber = new CarNumber("car-number-1");
         final Ticket ticket = new Ticket(parkingLotId, carNumber);
 
         when(ticketRepository.findById(ticket.getId())).thenReturn(Optional.of(ticket));

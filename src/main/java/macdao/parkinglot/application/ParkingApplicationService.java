@@ -7,10 +7,12 @@ import macdao.parkinglot.domain.exception.ParkingLotIsFullException;
 import macdao.parkinglot.domain.model.Car;
 import macdao.parkinglot.domain.model.ParkingLot;
 import macdao.parkinglot.domain.model.Ticket;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
+@Service
 public class ParkingApplicationService {
     private final TicketRepository ticketRepository;
     private final ParkingLotRepository parkingLotRepository;

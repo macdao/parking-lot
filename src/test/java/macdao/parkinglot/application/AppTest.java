@@ -27,7 +27,7 @@ public class AppTest {
         final TicketRepository ticketRepository = new TicketRepository();
 
         final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, parkingLotRepository, parkingRobotRepository);
-        final CarNumber carNumber = new CarNumber();
+        final CarNumber carNumber = new CarNumber("car-number-1");
         final Car car = new Car(carNumber);
 
         final Ticket ticket = parkingApplicationService.park(car);

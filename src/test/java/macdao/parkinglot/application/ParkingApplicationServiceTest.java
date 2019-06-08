@@ -15,7 +15,8 @@ import java.util.Optional;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ParkingApplicationServiceTest {
@@ -47,7 +48,7 @@ public class ParkingApplicationServiceTest {
     @Test
     public void park_should_to_1st_robot() {
         when(robot1.find(parkingLot)).thenReturn(Optional.of(parkingLot));
-        final CarNumber carNumber = new CarNumber();
+        final CarNumber carNumber = new CarNumber("car-number-1");
         final Car car = new Car(carNumber);
 
         final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, parkingLotRepository, parkingRobotRepository);
@@ -63,7 +64,7 @@ public class ParkingApplicationServiceTest {
         when(robot2.find()).thenReturn(Optional.of(parkingLot));
         final ParkingLotId parkingLotId = new ParkingLotId();
         when(parkingLot.getId()).thenReturn(parkingLotId);
-        final Car car = new Car(new CarNumber());
+        final Car car = new Car(new CarNumber("car-number-1"));
 
         final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, parkingLotRepository, parkingRobotRepository);
 
@@ -75,7 +76,7 @@ public class ParkingApplicationServiceTest {
     @Test
     public void park_should_add_ticket_to_repo() {
         when(robot1.find(parkingLot)).thenReturn(Optional.of(parkingLot));
-        final CarNumber carNumber = new CarNumber();
+        final CarNumber carNumber = new CarNumber("car-number-1");
         final Car car = new Car(carNumber);
 
         final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, parkingLotRepository, parkingRobotRepository);

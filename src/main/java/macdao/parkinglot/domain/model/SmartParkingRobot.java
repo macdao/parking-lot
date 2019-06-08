@@ -17,6 +17,7 @@ public class SmartParkingRobot implements ParkingRobot {
     public List<ParkingLotId> getManagedParkingLotIds() {
         return Arrays.asList(managedParkingLotIds);
     }
+
     public Optional<ParkingLot> find(ParkingLot... parkingLots) {
         return Arrays.stream(parkingLots)
                 .max(Comparator.comparingInt(ParkingLot::getSpace))
