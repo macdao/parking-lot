@@ -10,7 +10,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class ParkingManagerTest {
+public class ParkingApplicationServiceTest {
     private TicketRepository ticketRepository;
 
     @Before
@@ -28,9 +28,9 @@ public class ParkingManagerTest {
         final CarNumber carNumber = new CarNumber();
         final Car car = new Car(carNumber);
 
-        final ParkingManager parkingManager = new ParkingManager(ticketRepository, robot, mock(ParkingRobot.class));
+        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, robot, mock(ParkingRobot.class));
 
-        final Ticket ticket = parkingManager.park(car);
+        final Ticket ticket = parkingApplicationService.park(car);
 
         assertThat(ticket.getParkingLotId()).isEqualTo(parkingLotId);
         assertThat(ticket.getCarNumber()).isEqualTo(carNumber);
@@ -48,9 +48,9 @@ public class ParkingManagerTest {
         when(parkingLot.getId()).thenReturn(parkingLotId);
         final Car car = new Car(new CarNumber());
 
-        final ParkingManager parkingManager = new ParkingManager(ticketRepository, robot1, robot2);
+        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, robot1, robot2);
 
-        final Ticket ticket = parkingManager.park(car);
+        final Ticket ticket = parkingApplicationService.park(car);
 
         assertThat(ticket.getParkingLotId()).isEqualTo(parkingLotId);
     }
@@ -66,9 +66,9 @@ public class ParkingManagerTest {
         final Car car = new Car(carNumber);
 
 
-        final ParkingManager parkingManager = new ParkingManager(ticketRepository, robot, mock(ParkingRobot.class));
+        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, robot, mock(ParkingRobot.class));
 
-        final Ticket ticket = parkingManager.park(car);
+        final Ticket ticket = parkingApplicationService.park(car);
 
         verify(ticketRepository).save(ticket);
     }

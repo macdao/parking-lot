@@ -9,11 +9,11 @@ import macdao.parkinglot.domain.model.TicketId;
 
 import java.util.Arrays;
 
-public class PickManager {
+public class PickApplicationService {
     private final TicketRepository ticketRepository;
     private final ParkingLot[] parkingLots;
 
-    public PickManager(TicketRepository ticketRepository, ParkingLot... parkingLots) {
+    public PickApplicationService(TicketRepository ticketRepository, ParkingLot... parkingLots) {
         this.ticketRepository = ticketRepository;
         this.parkingLots = parkingLots;
     }

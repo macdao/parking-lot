@@ -6,15 +6,16 @@ import macdao.parkinglot.domain.model.Car;
 import macdao.parkinglot.domain.model.ParkingLot;
 import macdao.parkinglot.domain.model.ParkingRobot;
 import macdao.parkinglot.domain.model.Ticket;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Optional;
 
-public class ParkingManager {
+public class ParkingApplicationService {
     private final TicketRepository ticketRepository;
     private ParkingRobot[] parkingRobots;
 
-    public ParkingManager(TicketRepository ticketRepository, ParkingRobot... parkingRobots) {
+    public ParkingApplicationService(TicketRepository ticketRepository, ParkingRobot... parkingRobots) {
         this.ticketRepository = ticketRepository;
         this.parkingRobots = parkingRobots;
     }

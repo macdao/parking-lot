@@ -16,15 +16,15 @@ public class AppTest {
         final TicketRepository ticketRepository = new TicketRepository();
         final SimpleParkingRobot simpleParkingRobot = new SimpleParkingRobot(parkingLot1);
         final SmartParkingRobot smartParkingRobot = new SmartParkingRobot(parkingLot2);
-        final ParkingManager parkingManager = new ParkingManager(ticketRepository, simpleParkingRobot, smartParkingRobot);
+        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, simpleParkingRobot, smartParkingRobot);
         final CarNumber carNumber = new CarNumber();
         final Car car = new Car(carNumber);
 
-        final Ticket ticket = parkingManager.park(car);
+        final Ticket ticket = parkingApplicationService.park(car);
 
-        final PickManager pickManager = new PickManager(ticketRepository, parkingLot1, parkingLot2);
+        final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLot1, parkingLot2);
         final TicketId id = ticket.getId();
-        final Car pick = pickManager.pick(id);
+        final Car pick = pickApplicationService.pick(id);
 
         assertThat(pick).isEqualTo(car);
     }

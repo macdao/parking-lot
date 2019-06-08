@@ -10,7 +10,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class PickManagerTest {
+public class PickApplicationServiceTest {
     @Test
     public void pick_should_return_car() {
         final ParkingLotId parkingLotId = new ParkingLotId();
@@ -25,9 +25,9 @@ public class PickManagerTest {
         final ParkingLot parkingLot = mock(ParkingLot.class);
         when(parkingLot.getId()).thenReturn(parkingLotId);
         when(parkingLot.pick(carNumber)).thenReturn(carToBeParked);
-        final PickManager pickManager = new PickManager(ticketRepository, parkingLot);
+        final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLot);
 
-        final Car car = pickManager.pick(ticket.getId());
+        final Car car = pickApplicationService.pick(ticket.getId());
 
         assertThat(car).isEqualTo(carToBeParked);
     }
@@ -36,9 +36,9 @@ public class PickManagerTest {
     public void pick_should_fail_when_ticket_id_invalid() {
         final ParkingLot parkingLot = mock(ParkingLot.class);
         final TicketRepository ticketRepository = mock(TicketRepository.class);
-        final PickManager pickManager = new PickManager(ticketRepository, parkingLot);
+        final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLot);
 
-        pickManager.pick(new TicketId());
+        pickApplicationService.pick(new TicketId());
     }
 
     @Test
@@ -54,9 +54,9 @@ public class PickManagerTest {
         when(parkingLot.getId()).thenReturn(parkingLotId);
         when(parkingLot.pick(carNumber)).thenReturn(mock(Car.class));
 
-        final PickManager pickManager = new PickManager(ticketRepository, parkingLot);
+        final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLot);
 
-        pickManager.pick(ticketId);
+        pickApplicationService.pick(ticketId);
 
         verify(ticketRepository).delete(ticket);
     }
