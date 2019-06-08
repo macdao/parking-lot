@@ -1,13 +1,8 @@
 package macdao.parkinglot.domain.model;
 
+import lombok.Data;
+
+@Data
 public class Car {
     private final CarNumber carNumber;
-
-    public Car(CarNumber carNumber) {
-        this.carNumber = carNumber;
-    }
-
-    public CarNumber getCarNumber() {
-        return carNumber;
-    }
 }

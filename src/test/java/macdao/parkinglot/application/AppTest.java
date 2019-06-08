@@ -11,9 +11,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AppTest {
     @Test
     public void park() {
-        final ParkingLotId parkingLotId1 = new ParkingLotId();
+        final ParkingLotId parkingLotId1 = new ParkingLotId("parking-lot-id-1");
         final ParkingLot parkingLot1 = new ParkingLot(parkingLotId1, 10);
-        final ParkingLotId parkingLotId2 = new ParkingLotId();
+        final ParkingLotId parkingLotId2 = new ParkingLotId("parking-lot-id-2");
         final ParkingLot parkingLot2 = new ParkingLot(parkingLotId2, 10);
 
         final ParkingRobotRepository parkingRobotRepository = new ParkingRobotRepository();
@@ -30,11 +30,16 @@ public class AppTest {
         final CarNumber carNumber = new CarNumber("car-number-1");
         final Car car = new Car(carNumber);
 
-        final Ticket ticket = parkingApplicationService.park(car);
+        final ParkCommand parkCommand = new ParkCommand();
+        parkCommand.setCarNumber(carNumber.getValue());
+        final Ticket ticket = parkingApplicationService.park(parkCommand);
 
         final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLotRepository);
         final TicketId id = ticket.getId();
-        final Car pick = pickApplicationService.pick(id);
+
+        final PickCommand pickCommand = new PickCommand();
+        pickCommand.setTicketId(id.getValue());
+        final Car pick = pickApplicationService.pick(pickCommand);
 
         assertThat(pick).isEqualTo(car);
     }

@@ -24,7 +24,7 @@ public class PickApplicationServiceTest {
 
     @Test
     public void pick_should_return_car() {
-        final ParkingLotId parkingLotId = new ParkingLotId();
+        final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id-1");
         final CarNumber carNumber = new CarNumber("car-number-1");
         final Ticket ticket = new Ticket(parkingLotId, carNumber);
 
@@ -37,7 +37,9 @@ public class PickApplicationServiceTest {
         when(parkingLotRepository.findById(parkingLotId)).thenReturn(Optional.of(parkingLot));
         final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLotRepository);
 
-        final Car car = pickApplicationService.pick(ticket.getId());
+        final PickCommand pickCommand = new PickCommand();
+        pickCommand.setTicketId(ticket.getId().getValue());
+        final Car car = pickApplicationService.pick(pickCommand);
 
         assertThat(car).isEqualTo(carToBeParked);
     }
@@ -46,12 +48,14 @@ public class PickApplicationServiceTest {
     public void pick_should_fail_when_ticket_id_invalid() {
         final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLotRepository);
 
-        pickApplicationService.pick(new TicketId());
+        final PickCommand pickCommand = new PickCommand();
+        pickCommand.setTicketId("invalid-ticket-id");
+        pickApplicationService.pick(pickCommand);
     }
 
     @Test
     public void pick_should_remove_ticket_from_repo() {
-        final ParkingLotId parkingLotId = new ParkingLotId();
+        final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id-1");
         final CarNumber carNumber = new CarNumber("car-number-1");
         final Ticket ticket = new Ticket(parkingLotId, carNumber);
 
@@ -64,7 +68,9 @@ public class PickApplicationServiceTest {
         when(parkingLotRepository.findById(parkingLotId)).thenReturn(Optional.of(parkingLot));
         final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLotRepository);
 
-        pickApplicationService.pick(ticket.getId());
+        final PickCommand pickCommand = new PickCommand();
+        pickCommand.setTicketId(ticket.getId().getValue());
+        pickApplicationService.pick(pickCommand);
 
         verify(ticketRepository).delete(ticket);
     }

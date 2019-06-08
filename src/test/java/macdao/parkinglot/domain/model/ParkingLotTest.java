@@ -13,7 +13,7 @@ public class ParkingLotTest {
 
     @Before
     public void setUp() {
-        parkingLot = new ParkingLot(new ParkingLotId(), 10);
+        parkingLot = new ParkingLot(new ParkingLotId("parking-lot-id-1"), 10);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class ParkingLotTest {
 
     @Test(expected = ParkingLotIsFullException.class)
     public void cannot_park_2_cars_when_parking_lot_capacity_is_1() {
-        final ParkingLot parkingLot = new ParkingLot(new ParkingLotId(), 1);
+        final ParkingLot parkingLot = new ParkingLot(new ParkingLotId("parking-lot-id-1"), 1);
         parkingLot.park(new Car(new CarNumber("car-number-1")));
         parkingLot.park(new Car(new CarNumber("car-number-1")));
     }

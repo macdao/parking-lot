@@ -5,6 +5,7 @@ import macdao.parkinglot.domain.ParkingRobotRepository;
 import macdao.parkinglot.domain.TicketRepository;
 import macdao.parkinglot.domain.exception.ParkingLotIsFullException;
 import macdao.parkinglot.domain.model.Car;
+import macdao.parkinglot.domain.model.CarNumber;
 import macdao.parkinglot.domain.model.ParkingLot;
 import macdao.parkinglot.domain.model.Ticket;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,9 @@ public class ParkingApplicationService {
         this.parkingRobotRepository = parkingRobotRepository;
     }
 
-    public Ticket park(Car car) {
+    public Ticket park(ParkCommand parkCommand) {
+        final Car car = new Car(new CarNumber(parkCommand.getCarNumber()));
+
         return find()
                 .map(p -> {
                     p.park(car);

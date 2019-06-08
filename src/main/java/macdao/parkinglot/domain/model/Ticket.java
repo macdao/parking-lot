@@ -1,5 +1,8 @@
 package macdao.parkinglot.domain.model;
 
+import lombok.Data;
+
+@Data
 public class Ticket {
     private final TicketId id;
     private final ParkingLotId parkingLotId;
@@ -9,17 +12,5 @@ public class Ticket {
         this.parkingLotId = parkingLotId;
         this.carNumber = carNumber;
         this.id = new TicketId();
-    }
-
-    public TicketId getId() {
-        return id;
-    }
-
-    public ParkingLotId getParkingLotId() {
-        return parkingLotId;
-    }
-
-    public CarNumber getCarNumber() {
-        return carNumber;
     }
 }
