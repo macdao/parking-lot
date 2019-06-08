@@ -20,7 +20,7 @@ public class SmartParkingRobotTest {
         when(parkingLot1.hasSpace()).thenReturn(true);
         parkingLot2 = mock(ParkingLot.class);
         when(parkingLot2.hasSpace()).thenReturn(true);
-        parkingRobot = new SmartParkingRobot(parkingLot1, parkingLot2);
+        parkingRobot = new SmartParkingRobot();
     }
 
     @Test/**/
@@ -28,7 +28,7 @@ public class SmartParkingRobotTest {
         when(parkingLot1.getSpace()).thenReturn(2);
         when(parkingLot2.getSpace()).thenReturn(1);
 
-        final Optional<ParkingLot> parkingLot = parkingRobot.find();
+        final Optional<ParkingLot> parkingLot = parkingRobot.find(parkingLot1, parkingLot2);
 
         Assertions.assertThat(parkingLot).containsSame(parkingLot1);
     }
@@ -38,7 +38,7 @@ public class SmartParkingRobotTest {
         when(parkingLot1.getSpace()).thenReturn(1);
         when(parkingLot2.getSpace()).thenReturn(2);
 
-        final Optional<ParkingLot> parkingLot = parkingRobot.find();
+        final Optional<ParkingLot> parkingLot = parkingRobot.find(parkingLot1, parkingLot2);
 
         Assertions.assertThat(parkingLot).containsSame(parkingLot2);
     }
@@ -48,7 +48,7 @@ public class SmartParkingRobotTest {
         when(parkingLot1.getSpace()).thenReturn(1);
         when(parkingLot2.getSpace()).thenReturn(1);
 
-        final Optional<ParkingLot> parkingLot = parkingRobot.find();
+        final Optional<ParkingLot> parkingLot = parkingRobot.find(parkingLot1, parkingLot2);
 
         Assertions.assertThat(parkingLot).containsSame(parkingLot1);
     }
@@ -60,7 +60,7 @@ public class SmartParkingRobotTest {
         when(parkingLot2.getSpace()).thenReturn(0);
         when(parkingLot2.hasSpace()).thenReturn(false);
 
-        final Optional<ParkingLot> parkingLot = parkingRobot.find();
+        final Optional<ParkingLot> parkingLot = parkingRobot.find(parkingLot1, parkingLot2);
 
         Assertions.assertThat(parkingLot).isEmpty();
     }
