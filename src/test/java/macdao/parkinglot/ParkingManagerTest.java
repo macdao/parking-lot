@@ -1,14 +1,21 @@
 package macdao.parkinglot;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ParkingManagerTest {
+    private TicketRepository ticketRepository;
+
+    @Before
+    public void setUp() {
+        ticketRepository = mock(TicketRepository.class);
+    }
+
     @Test
     public void park_should_to_1st_robot() {
         final ParkingRobot robot = mock(ParkingRobot.class);
@@ -19,7 +26,7 @@ public class ParkingManagerTest {
         final CarNumber carNumber = new CarNumber("car-number-1");
         final Car car = new Car(carNumber);
 
-        final ParkingManager parkingManager = new ParkingManager(robot, mock(ParkingRobot.class));
+        final ParkingManager parkingManager = new ParkingManager(ticketRepository, robot, mock(ParkingRobot.class));
 
         final Ticket ticket = parkingManager.park(car);
 
@@ -39,10 +46,28 @@ public class ParkingManagerTest {
         when(parkingLot.getId()).thenReturn(parkingLotId);
         final Car car = new Car(new CarNumber("car-number-1"));
 
-        final ParkingManager parkingManager = new ParkingManager(robot1, robot2);
+        final ParkingManager parkingManager = new ParkingManager(ticketRepository, robot1, robot2);
 
         final Ticket ticket = parkingManager.park(car);
 
         assertThat(ticket.getParkingLotId()).isEqualTo(parkingLotId);
+    }
+
+    @Test
+    public void park_should_add_ticket_to_repo() {
+        final ParkingRobot robot = mock(ParkingRobot.class);
+        final ParkingLot parkingLot = mock(ParkingLot.class);
+        when(robot.find()).thenReturn(Optional.of(parkingLot));
+        final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id-1");
+        when(parkingLot.getId()).thenReturn(parkingLotId);
+        final CarNumber carNumber = new CarNumber("car-number-1");
+        final Car car = new Car(carNumber);
+
+
+        final ParkingManager parkingManager = new ParkingManager(ticketRepository, robot, mock(ParkingRobot.class));
+
+        final Ticket ticket = parkingManager.park(car);
+
+        verify(ticketRepository).save(ticket);
     }
 }

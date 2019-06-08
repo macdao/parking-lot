@@ -4,9 +4,11 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class ParkingManager {
+    private final TicketRepository ticketRepository;
     private ParkingRobot[] parkingRobots;
 
-    public ParkingManager(ParkingRobot... parkingRobots) {
+    public ParkingManager(TicketRepository ticketRepository, ParkingRobot... parkingRobots) {
+        this.ticketRepository = ticketRepository;
         this.parkingRobots = parkingRobots;
     }
 
@@ -14,7 +16,9 @@ public class ParkingManager {
         return find()
                 .map(p -> {
                     p.park(car);
-                    return new Ticket(p.getId(), car.getCarNumber());
+                    final Ticket ticket = new Ticket(p.getId(), car.getCarNumber());
+                    ticketRepository.save(ticket);
+                    return ticket;
                 })
                 .orElseThrow(ParkingLotIsFullException::new);
     }
