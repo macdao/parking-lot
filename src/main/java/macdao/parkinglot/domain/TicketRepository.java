@@ -2,27 +2,14 @@ package macdao.parkinglot.domain;
 
 import macdao.parkinglot.domain.model.Ticket;
 import macdao.parkinglot.domain.model.TicketId;
-import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
-@Repository
-public class TicketRepository {
-    private List<Ticket> ticketList = new ArrayList<>();
+public interface TicketRepository {
 
-    public Optional<Ticket> findById(TicketId id) {
-        return ticketList.stream()
-                .filter(t -> t.getId().equals(id))
-                .findFirst();
-    }
+    Optional<Ticket> findById(TicketId id);
 
-    public void save(Ticket ticket) {
-        ticketList.add(ticket);
-    }
+    void save(Ticket ticket);
 
-    public void delete(Ticket ticket) {
-        ticketList.remove(ticket);
-    }
+    void delete(Ticket ticket);
 }

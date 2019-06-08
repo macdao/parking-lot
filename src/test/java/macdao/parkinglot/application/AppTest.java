@@ -1,5 +1,8 @@
 package macdao.parkinglot.application;
 
+import macdao.parkinglot.adapter.mem.MemParkingLotRepository;
+import macdao.parkinglot.adapter.mem.MemParkingRobotRepository;
+import macdao.parkinglot.adapter.mem.MemTicketRepository;
 import macdao.parkinglot.domain.ParkingLotRepository;
 import macdao.parkinglot.domain.ParkingRobotRepository;
 import macdao.parkinglot.domain.TicketRepository;
@@ -16,15 +19,15 @@ public class AppTest {
         final ParkingLotId parkingLotId2 = new ParkingLotId("parking-lot-id-2");
         final ParkingLot parkingLot2 = new ParkingLot(parkingLotId2, 10);
 
-        final ParkingRobotRepository parkingRobotRepository = new ParkingRobotRepository();
+        final ParkingRobotRepository parkingRobotRepository = new MemParkingRobotRepository();
         parkingRobotRepository.save(new SimpleParkingRobot(parkingLotId1));
         parkingRobotRepository.save(new SmartParkingRobot(parkingLotId2));
 
-        final ParkingLotRepository parkingLotRepository = new ParkingLotRepository();
+        final ParkingLotRepository parkingLotRepository = new MemParkingLotRepository();
         parkingLotRepository.save(parkingLot1);
         parkingLotRepository.save(parkingLot2);
 
-        final TicketRepository ticketRepository = new TicketRepository();
+        final TicketRepository ticketRepository = new MemTicketRepository();
 
         final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, parkingLotRepository, parkingRobotRepository);
         final CarNumber carNumber = new CarNumber("car-number-1");
