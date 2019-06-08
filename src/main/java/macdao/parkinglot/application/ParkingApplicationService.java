@@ -28,14 +28,13 @@ public class ParkingApplicationService {
     public Ticket park(ParkCommand parkCommand) {
         final Car car = new Car(new CarNumber(parkCommand.getCarNumber()));
 
-        return find()
-                .map(p -> {
-                    p.park(car);
-                    final Ticket ticket = new Ticket(p.getId(), car.getCarNumber());
-                    ticketRepository.save(ticket);
-                    return ticket;
-                })
-                .orElseThrow(ParkingLotIsFullException::new);
+        final ParkingLot parkingLot = find().orElseThrow(ParkingLotIsFullException::new);
+
+        parkingLot.park(car);
+        final Ticket ticket = new Ticket(parkingLot.getId(), car.getCarNumber());
+        ticketRepository.save(ticket);
+        parkingLotRepository.save(parkingLot);
+        return ticket;
     }
 
     private Optional<ParkingLot> find() {
