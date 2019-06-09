@@ -30,8 +30,7 @@ public class ParkingApplicationService {
 
         final ParkingLot parkingLot = find().orElseThrow(ParkingLotIsFullException::new);
 
-        parkingLot.park(car);
-        final Ticket ticket = new Ticket(parkingLot.getId(), car.getCarNumber());
+        final Ticket ticket = parkingLot.park(car);
         ticketRepository.save(ticket);
         parkingLotRepository.save(parkingLot);
         return ticket;
