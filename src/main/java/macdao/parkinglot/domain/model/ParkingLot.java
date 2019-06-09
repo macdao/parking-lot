@@ -20,11 +20,12 @@ public class ParkingLot {
         return id;
     }
 
-    public void park(Car car) {
+    public Ticket park(Car car) {
         if (isFull()) {
             throw new ParkingLotIsFullException();
         }
         carList.add(car);
+        return new Ticket(this.id, car.getCarNumber());
     }
 
     public Car pick(CarNumber carNumber) {
