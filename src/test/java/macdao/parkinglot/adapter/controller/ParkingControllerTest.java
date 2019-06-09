@@ -3,8 +3,10 @@ package macdao.parkinglot.adapter.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import macdao.parkinglot.domain.ParkingLotRepository;
 import macdao.parkinglot.domain.ParkingRobotRepository;
-import macdao.parkinglot.domain.TicketRepository;
-import macdao.parkinglot.domain.model.*;
+import macdao.parkinglot.domain.model.ParkingLot;
+import macdao.parkinglot.domain.model.ParkingLotId;
+import macdao.parkinglot.domain.model.ParkingRobot;
+import macdao.parkinglot.domain.model.SimpleParkingPolicy;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +21,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.Collections;
 import java.util.Map;
 
-import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -36,8 +37,6 @@ public class ParkingControllerTest {
     private ParkingLotRepository parkingLotRepository;
     @Autowired
     private ParkingRobotRepository parkingRobotRepository;
-    @Autowired
-    private TicketRepository ticketRepository;
     private ParkingLot parkingLot;
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -52,7 +51,7 @@ public class ParkingControllerTest {
     @Test
     public void test_park() throws Exception {
         final String carNumber = "car-number-1";
-        final MvcResult result = this.mockMvc.perform(post("/parking-lot/park")
+        this.mockMvc.perform(post("/parking-lot/park")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(Collections.singletonMap("carNumber", carNumber))))
                 .andDo(print())
@@ -60,14 +59,6 @@ public class ParkingControllerTest {
                 .andReturn();
 
         assertThat(parkingLot.getSpace()).isEqualTo(9);
-        final String ticketId = (String) objectMapper.readValue(result.getResponse().getContentAsString(), Map.class).get("ticketId");
-        assertThat(ticketRepository.findById(new TicketId(ticketId))).hasValueSatisfying(
-                t -> {
-                    assertThat(t.getId().getValue()).isEqualTo(ticketId);
-                    assertThat(t.getCarNumber().getValue()).isEqualTo(carNumber);
-                    assertThat(t.getParkingLotId()).isEqualTo(parkingLot.getId());
-                }
-        );
     }
 
     @Test
@@ -94,7 +85,5 @@ public class ParkingControllerTest {
         assertThat(parkingLot.getSpace()).isEqualTo(10);
         final String carNumberReturned = (String) objectMapper.readValue(result2.getResponse().getContentAsString(), Map.class).get("carNumber");
         assertThat(carNumberReturned).isEqualTo(carNumber);
-        assertThat(ticketRepository.findById(new TicketId(ticketId))).isEmpty();
-
     }
 }

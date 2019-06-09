@@ -2,7 +2,6 @@ package macdao.parkinglot.application;
 
 import macdao.parkinglot.domain.ParkingLotRepository;
 import macdao.parkinglot.domain.ParkingRobotRepository;
-import macdao.parkinglot.domain.TicketRepository;
 import macdao.parkinglot.domain.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,13 +15,10 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ParkingApplicationServiceTest {
-    @Mock
-    private TicketRepository ticketRepository;
     @Mock
     private ParkingLotRepository parkingLotRepository;
     @Mock
@@ -53,7 +49,7 @@ public class ParkingApplicationServiceTest {
     public void park_should_to_1st_robot() {
         when(robot1.find(parkingLot)).thenReturn(Optional.of(parkingLot));
 
-        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, parkingLotRepository, parkingRobotRepository);
+        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(parkingLotRepository, parkingRobotRepository);
 
         final ParkCommand parkCommand = new ParkCommand();
         parkCommand.setCarNumber(carNumber.getValue());
@@ -67,25 +63,12 @@ public class ParkingApplicationServiceTest {
     public void park_should_to_2nd_robot_when_1st_cannot_park() {
         when(robot2.find()).thenReturn(Optional.of(parkingLot));
 
-        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, parkingLotRepository, parkingRobotRepository);
+        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(parkingLotRepository, parkingRobotRepository);
 
         final ParkCommand parkCommand = new ParkCommand();
         parkCommand.setCarNumber(carNumber.getValue());
         final Ticket ticket = parkingApplicationService.park(parkCommand);
 
         assertThat(ticket.getParkingLotId()).isEqualTo(parkingLotId1);
-    }
-
-    @Test
-    public void park_should_add_ticket_to_repo() {
-        when(robot1.find(parkingLot)).thenReturn(Optional.of(parkingLot));
-
-        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, parkingLotRepository, parkingRobotRepository);
-
-        final ParkCommand parkCommand = new ParkCommand();
-        parkCommand.setCarNumber(carNumber.getValue());
-        final Ticket ticket = parkingApplicationService.park(parkCommand);
-
-        verify(ticketRepository).save(ticket);
     }
 }

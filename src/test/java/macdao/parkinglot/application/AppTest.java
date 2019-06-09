@@ -2,10 +2,8 @@ package macdao.parkinglot.application;
 
 import macdao.parkinglot.adapter.mem.MemParkingLotRepository;
 import macdao.parkinglot.adapter.mem.MemParkingRobotRepository;
-import macdao.parkinglot.adapter.mem.MemTicketRepository;
 import macdao.parkinglot.domain.ParkingLotRepository;
 import macdao.parkinglot.domain.ParkingRobotRepository;
-import macdao.parkinglot.domain.TicketRepository;
 import macdao.parkinglot.domain.model.*;
 import org.junit.Test;
 
@@ -27,9 +25,7 @@ public class AppTest {
         parkingLotRepository.save(parkingLot1);
         parkingLotRepository.save(parkingLot2);
 
-        final TicketRepository ticketRepository = new MemTicketRepository();
-
-        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(ticketRepository, parkingLotRepository, parkingRobotRepository);
+        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(parkingLotRepository, parkingRobotRepository);
         final CarNumber carNumber = new CarNumber("car-number-1");
         final Car car = new Car(carNumber);
 
@@ -37,7 +33,7 @@ public class AppTest {
         parkCommand.setCarNumber(carNumber.getValue());
         final Ticket ticket = parkingApplicationService.park(parkCommand);
 
-        final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLotRepository);
+        final PickApplicationService pickApplicationService = new PickApplicationService(parkingLotRepository);
 
         final PickCommand pickCommand = new PickCommand();
         pickCommand.setTicketId(ticket.getId().getValue());

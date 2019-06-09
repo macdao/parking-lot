@@ -2,7 +2,6 @@ package macdao.parkinglot.application;
 
 import macdao.parkinglot.domain.ParkingLotRepository;
 import macdao.parkinglot.domain.ParkingRobotRepository;
-import macdao.parkinglot.domain.TicketRepository;
 import macdao.parkinglot.domain.exception.ParkingLotIsFullException;
 import macdao.parkinglot.domain.model.Car;
 import macdao.parkinglot.domain.model.CarNumber;
@@ -15,12 +14,10 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class ParkingApplicationService {
-    private final TicketRepository ticketRepository;
     private final ParkingLotRepository parkingLotRepository;
     private final ParkingRobotRepository parkingRobotRepository;
 
-    public ParkingApplicationService(TicketRepository ticketRepository, ParkingLotRepository parkingLotRepository, ParkingRobotRepository parkingRobotRepository) {
-        this.ticketRepository = ticketRepository;
+    public ParkingApplicationService(ParkingLotRepository parkingLotRepository, ParkingRobotRepository parkingRobotRepository) {
         this.parkingLotRepository = parkingLotRepository;
         this.parkingRobotRepository = parkingRobotRepository;
     }
@@ -31,7 +28,6 @@ public class ParkingApplicationService {
         final ParkingLot parkingLot = find().orElseThrow(ParkingLotIsFullException::new);
 
         final Ticket ticket = parkingLot.park(car);
-        ticketRepository.save(ticket);
         parkingLotRepository.save(parkingLot);
         return ticket;
     }
