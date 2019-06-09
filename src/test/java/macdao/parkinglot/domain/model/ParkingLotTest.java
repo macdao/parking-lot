@@ -33,20 +33,22 @@ public class ParkingLotTest {
 
     @Test
     public void can_pick_car() {
-        parkingLot.park(car1);
+        final Ticket ticket = parkingLot.park(car1);
 
-        assertThat(parkingLot.pick(car1.getCarNumber())).isEqualTo(car1);
+        final Car car = parkingLot.pick(ticket.getId());
+
+        assertThat(car.getCarNumber()).isEqualTo(carNumber1);
     }
 
     @Test
     public void can_pick_correct_car_when_2_cars_parked() {
-        parkingLot.park(car1);
+        final Ticket ticket1 = parkingLot.park(car1);
 
         final Car car2 = new Car(new CarNumber("car-number-2"));
-        parkingLot.park(car2);
+        final Ticket ticket2 = parkingLot.park(car2);
 
-        assertThat(parkingLot.pick(car2.getCarNumber())).isEqualTo(car2);
-        assertThat(parkingLot.pick(car1.getCarNumber())).isEqualTo(car1);
+        assertThat(parkingLot.pick(ticket1.getId())).isEqualTo(car1);
+        assertThat(parkingLot.pick(ticket2.getId())).isEqualTo(car2);
     }
 
     @Test(expected = ParkingLotIsFullException.class)
@@ -58,7 +60,7 @@ public class ParkingLotTest {
 
     @Test(expected = CarNotFoundException.class)
     public void pick_should_fail_when_ticket_is_invalid() {
-        parkingLot.pick(carNumber1);
+        parkingLot.pick(new TicketId());
     }
 
     @Test
@@ -70,9 +72,9 @@ public class ParkingLotTest {
 
     @Test(expected = CarNotFoundException.class)
     public void pick_should_fail_when_use_ticket_twice() {
-        parkingLot.park(car1);
-        parkingLot.pick(car1.getCarNumber());
+        final Ticket ticket = parkingLot.park(car1);
 
-        parkingLot.pick(car1.getCarNumber());
+        parkingLot.pick(ticket.getId());
+        parkingLot.pick(ticket.getId());
     }
 }
