@@ -3,15 +3,12 @@ package macdao.parkinglot.domain.model;
 import macdao.parkinglot.domain.exception.CarNotFoundException;
 import macdao.parkinglot.domain.exception.ParkingLotIsFullException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ParkingLot {
     private final ParkingLotId id;
     private final int capacity;
-    private List<Car> carList = new ArrayList<>();
     private Map<TicketId, Car> tickets = new HashMap<>();
 
     public ParkingLot(ParkingLotId id, int capacity) {
@@ -27,7 +24,6 @@ public class ParkingLot {
         if (isFull()) {
             throw new ParkingLotIsFullException();
         }
-        carList.add(car);
         final Ticket ticket = new Ticket(this.id, car.getCarNumber());
         tickets.put(ticket.getId(), car);
         return ticket;
@@ -47,10 +43,10 @@ public class ParkingLot {
     }
 
     public int getSpace() {
-        return capacity - carList.size();
+        return capacity - tickets.size();
     }
 
     private boolean isFull() {
-        return carList.size() == capacity;
+        return tickets.size() == capacity;
     }
 }
