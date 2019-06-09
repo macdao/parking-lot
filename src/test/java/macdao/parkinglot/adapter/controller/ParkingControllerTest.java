@@ -80,11 +80,13 @@ public class ParkingControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        final String ticketId = (String) objectMapper.readValue(result.getResponse().getContentAsString(), Map.class).get("ticketId");
+        final Map resultMap = objectMapper.readValue(result.getResponse().getContentAsString(), Map.class);
+        final String ticketId = (String) resultMap.get("ticketId");
+        final String parkingLotId = (String) resultMap.get("parkingLotId");
 
         final MvcResult result2 = this.mockMvc.perform(post("/parking-lot/pick")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(format("{\"ticketId\":\"%s\"}", ticketId)))
+                .content(objectMapper.writeValueAsString(Map.of("parkingLotId", parkingLotId, "ticketId", ticketId))))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();

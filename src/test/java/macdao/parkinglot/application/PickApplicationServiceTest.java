@@ -33,12 +33,13 @@ public class PickApplicationServiceTest {
         final Car carToBeParked = new Car(carNumber);
 
         final ParkingLot parkingLot = mock(ParkingLot.class);
-        when(parkingLot.pick(carNumber)).thenReturn(carToBeParked);
+        when(parkingLot.pick(ticket.getId())).thenReturn(carToBeParked);
         when(parkingLotRepository.findById(parkingLotId)).thenReturn(Optional.of(parkingLot));
         final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLotRepository);
 
         final PickCommand pickCommand = new PickCommand();
         pickCommand.setTicketId(ticket.getId().getValue());
+        pickCommand.setParkingLotId("parking-lot-id-1");
         final Car car = pickApplicationService.pick(pickCommand);
 
         assertThat(car).isEqualTo(carToBeParked);
@@ -64,12 +65,13 @@ public class PickApplicationServiceTest {
         final Car carToBeParked = new Car(carNumber);
 
         final ParkingLot parkingLot = mock(ParkingLot.class);
-        when(parkingLot.pick(carNumber)).thenReturn(carToBeParked);
+        when(parkingLot.pick(ticket.getId())).thenReturn(carToBeParked);
         when(parkingLotRepository.findById(parkingLotId)).thenReturn(Optional.of(parkingLot));
         final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLotRepository);
 
         final PickCommand pickCommand = new PickCommand();
         pickCommand.setTicketId(ticket.getId().getValue());
+        pickCommand.setParkingLotId("parking-lot-id-1");
         pickApplicationService.pick(pickCommand);
 
         verify(ticketRepository).delete(ticket);

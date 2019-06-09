@@ -3,10 +3,7 @@ package macdao.parkinglot.application;
 import macdao.parkinglot.domain.ParkingLotRepository;
 import macdao.parkinglot.domain.TicketRepository;
 import macdao.parkinglot.domain.exception.TicketInvalidException;
-import macdao.parkinglot.domain.model.Car;
-import macdao.parkinglot.domain.model.ParkingLot;
-import macdao.parkinglot.domain.model.Ticket;
-import macdao.parkinglot.domain.model.TicketId;
+import macdao.parkinglot.domain.model.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,10 +23,10 @@ public class PickApplicationService {
 
         ticketRepository.delete(ticket);
 
-        final ParkingLot parkingLot = parkingLotRepository.findById(ticket.getParkingLotId())
+        final ParkingLot parkingLot = parkingLotRepository.findById(new ParkingLotId(pickCommand.getParkingLotId()))
                 .orElseThrow(TicketInvalidException::new);
 
         parkingLotRepository.save(parkingLot);
-        return parkingLot.pick(ticket.getCarNumber());
+        return parkingLot.pick(ticket.getId());
     }
 }

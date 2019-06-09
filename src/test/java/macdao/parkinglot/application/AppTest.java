@@ -38,10 +38,10 @@ public class AppTest {
         final Ticket ticket = parkingApplicationService.park(parkCommand);
 
         final PickApplicationService pickApplicationService = new PickApplicationService(ticketRepository, parkingLotRepository);
-        final TicketId id = ticket.getId();
 
         final PickCommand pickCommand = new PickCommand();
-        pickCommand.setTicketId(id.getValue());
+        pickCommand.setTicketId(ticket.getId().getValue());
+        pickCommand.setParkingLotId(ticket.getParkingLotId().getValue());
         final Car pick = pickApplicationService.pick(pickCommand);
 
         assertThat(pick).isEqualTo(car);

@@ -33,15 +33,6 @@ public class ParkingLot {
         return ticket;
     }
 
-    public Car pick(CarNumber carNumber) {
-        final Car result = carList.stream()
-                .filter(car -> car.getCarNumber().equals(carNumber))
-                .findFirst()
-                .orElseThrow(CarNotFoundException::new);
-        carList.remove(result);
-        return result;
-    }
-
     public Car pick(TicketId ticketId) {
         final Car car = tickets.get(ticketId);
         if (car == null) {
