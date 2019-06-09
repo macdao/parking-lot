@@ -1,10 +1,25 @@
 package macdao.parkinglot.domain.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public interface ParkingRobot {
-    List<ParkingLotId> getManagedParkingLotIds();
+public class ParkingRobot {
 
-    Optional<ParkingLot> find(ParkingLot... parkingLots);
+    private final ParkingPolicy parkingPolicy;
+    private final ParkingLotId[] managedParkingLotIds;
+
+    public ParkingRobot(ParkingPolicy parkingPolicy, ParkingLotId... managedParkingLotIds) {
+        this.parkingPolicy = parkingPolicy;
+        this.managedParkingLotIds = managedParkingLotIds;
+    }
+
+    public List<ParkingLotId> getManagedParkingLotIds() {
+        return Arrays.asList(managedParkingLotIds);
+    }
+
+
+    public Optional<ParkingLot> find(ParkingLot... parkingLots) {
+        return parkingPolicy.find(parkingLots);
+    }
 }

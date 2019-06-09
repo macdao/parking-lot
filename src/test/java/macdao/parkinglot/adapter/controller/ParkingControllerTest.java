@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import macdao.parkinglot.domain.ParkingLotRepository;
 import macdao.parkinglot.domain.ParkingRobotRepository;
 import macdao.parkinglot.domain.TicketRepository;
-import macdao.parkinglot.domain.model.ParkingLot;
-import macdao.parkinglot.domain.model.ParkingLotId;
-import macdao.parkinglot.domain.model.SimpleParkingRobot;
-import macdao.parkinglot.domain.model.TicketId;
+import macdao.parkinglot.domain.model.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +46,7 @@ public class ParkingControllerTest {
         final ParkingLotId parkingLotId = new ParkingLotId("parking-lot-id-1");
         parkingLot = new ParkingLot(parkingLotId, 10);
         parkingLotRepository.save(parkingLot);
-        parkingRobotRepository.save(new SimpleParkingRobot(parkingLotId));
+        parkingRobotRepository.save(new ParkingRobot(new SimpleParkingPolicy(), parkingLotId));
     }
 
     @Test

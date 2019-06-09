@@ -9,8 +9,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class SimpleParkingRobotTest {
-    private SimpleParkingRobot parkingRobot;
+public class SimpleParkingPolicyTest {
+    private SimpleParkingPolicy parkingRobot;
     private ParkingLot parkingLot1;
     private ParkingLot parkingLot2;
 
@@ -18,7 +18,7 @@ public class SimpleParkingRobotTest {
     public void setUp() {
         parkingLot1 = mock(ParkingLot.class);
         parkingLot2 = mock(ParkingLot.class);
-        parkingRobot = new SimpleParkingRobot();
+        parkingRobot = new SimpleParkingPolicy();
     }
 
     @Test

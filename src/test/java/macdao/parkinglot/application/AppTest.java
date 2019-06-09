@@ -20,8 +20,8 @@ public class AppTest {
         final ParkingLot parkingLot2 = new ParkingLot(parkingLotId2, 10);
 
         final ParkingRobotRepository parkingRobotRepository = new MemParkingRobotRepository();
-        parkingRobotRepository.save(new SimpleParkingRobot(parkingLotId1));
-        parkingRobotRepository.save(new SmartParkingRobot(parkingLotId2));
+        parkingRobotRepository.save(new ParkingRobot(new SimpleParkingPolicy(), parkingLotId1));
+        parkingRobotRepository.save(new ParkingRobot(new SmartParkingPolicy(), parkingLotId2));
 
         final ParkingLotRepository parkingLotRepository = new MemParkingLotRepository();
         parkingLotRepository.save(parkingLot1);
