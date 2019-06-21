@@ -1,11 +1,11 @@
 package macdao.parkinglot.application;
 
-import macdao.parkinglot.domain.ParkingLotRepository;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLotRepository;
 import macdao.parkinglot.domain.exception.ParkingLotIsFullException;
-import macdao.parkinglot.domain.model.Car;
-import macdao.parkinglot.domain.model.CarNumber;
-import macdao.parkinglot.domain.model.ParkingLot;
-import macdao.parkinglot.domain.model.Ticket;
+import macdao.parkinglot.domain.model.parkinglot.Car;
+import macdao.parkinglot.domain.model.parkinglot.CarNumber;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLot;
+import macdao.parkinglot.domain.model.parkinglot.Ticket;
 import macdao.parkinglot.domain.service.ParkingLotFinder;
 import org.springframework.stereotype.Service;
 

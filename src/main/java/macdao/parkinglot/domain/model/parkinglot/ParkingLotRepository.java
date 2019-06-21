@@ -1,7 +1,4 @@
-package macdao.parkinglot.domain;
-
-import macdao.parkinglot.domain.model.ParkingLot;
-import macdao.parkinglot.domain.model.ParkingLotId;
+package macdao.parkinglot.domain.model.parkinglot;
 
 import java.util.Optional;
 

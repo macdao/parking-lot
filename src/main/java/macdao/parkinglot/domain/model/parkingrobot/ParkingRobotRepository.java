@@ -1,6 +1,4 @@
-package macdao.parkinglot.domain;
-
-import macdao.parkinglot.domain.model.ParkingRobot;
+package macdao.parkinglot.domain.model.parkingrobot;
 
 public interface ParkingRobotRepository {
     Iterable<ParkingRobot> findAll();

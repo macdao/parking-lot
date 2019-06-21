@@ -2,9 +2,12 @@ package macdao.parkinglot.application;
 
 import macdao.parkinglot.adapter.mem.MemParkingLotRepository;
 import macdao.parkinglot.adapter.mem.MemParkingRobotRepository;
-import macdao.parkinglot.domain.ParkingLotRepository;
-import macdao.parkinglot.domain.ParkingRobotRepository;
-import macdao.parkinglot.domain.model.*;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLotRepository;
+import macdao.parkinglot.domain.model.parkingrobot.ParkingRobotRepository;
+import macdao.parkinglot.domain.model.parkinglot.*;
+import macdao.parkinglot.domain.model.parkingrobot.ParkingRobot;
+import macdao.parkinglot.domain.model.parkingrobot.SimpleParkingPolicy;
+import macdao.parkinglot.domain.model.parkingrobot.SmartParkingPolicy;
 import macdao.parkinglot.domain.service.ParkingLotFinder;
 import org.junit.Test;
 

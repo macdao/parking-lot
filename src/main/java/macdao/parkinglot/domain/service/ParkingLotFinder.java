@@ -1,8 +1,8 @@
 package macdao.parkinglot.domain.service;
 
-import macdao.parkinglot.domain.ParkingLotRepository;
-import macdao.parkinglot.domain.ParkingRobotRepository;
-import macdao.parkinglot.domain.model.ParkingLot;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLot;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLotRepository;
+import macdao.parkinglot.domain.model.parkingrobot.ParkingRobotRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

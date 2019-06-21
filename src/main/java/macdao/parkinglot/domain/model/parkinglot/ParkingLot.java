@@ -1,4 +1,4 @@
-package macdao.parkinglot.domain.model;
+package macdao.parkinglot.domain.model.parkinglot;
 
 import macdao.parkinglot.domain.exception.CarNotFoundException;
 import macdao.parkinglot.domain.exception.ParkingLotIsFullException;

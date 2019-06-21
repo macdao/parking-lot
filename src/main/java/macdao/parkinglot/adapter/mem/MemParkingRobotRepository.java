@@ -1,7 +1,7 @@
 package macdao.parkinglot.adapter.mem;
 
-import macdao.parkinglot.domain.ParkingRobotRepository;
-import macdao.parkinglot.domain.model.ParkingRobot;
+import macdao.parkinglot.domain.model.parkingrobot.ParkingRobotRepository;
+import macdao.parkinglot.domain.model.parkingrobot.ParkingRobot;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

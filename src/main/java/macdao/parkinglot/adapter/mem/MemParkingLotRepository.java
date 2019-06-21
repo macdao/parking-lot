@@ -1,8 +1,8 @@
 package macdao.parkinglot.adapter.mem;
 
-import macdao.parkinglot.domain.ParkingLotRepository;
-import macdao.parkinglot.domain.model.ParkingLot;
-import macdao.parkinglot.domain.model.ParkingLotId;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLotRepository;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLot;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLotId;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

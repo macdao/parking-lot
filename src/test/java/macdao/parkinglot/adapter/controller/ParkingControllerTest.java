@@ -1,12 +1,12 @@
 package macdao.parkinglot.adapter.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import macdao.parkinglot.domain.ParkingLotRepository;
-import macdao.parkinglot.domain.ParkingRobotRepository;
-import macdao.parkinglot.domain.model.ParkingLot;
-import macdao.parkinglot.domain.model.ParkingLotId;
-import macdao.parkinglot.domain.model.ParkingRobot;
-import macdao.parkinglot.domain.model.SimpleParkingPolicy;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLotRepository;
+import macdao.parkinglot.domain.model.parkingrobot.ParkingRobotRepository;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLot;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLotId;
+import macdao.parkinglot.domain.model.parkingrobot.ParkingRobot;
+import macdao.parkinglot.domain.model.parkingrobot.SimpleParkingPolicy;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

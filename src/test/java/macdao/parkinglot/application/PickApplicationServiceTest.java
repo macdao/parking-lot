@@ -1,8 +1,8 @@
 package macdao.parkinglot.application;
 
-import macdao.parkinglot.domain.ParkingLotRepository;
+import macdao.parkinglot.domain.model.parkinglot.ParkingLotRepository;
 import macdao.parkinglot.domain.exception.TicketInvalidException;
-import macdao.parkinglot.domain.model.*;
+import macdao.parkinglot.domain.model.parkinglot.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
