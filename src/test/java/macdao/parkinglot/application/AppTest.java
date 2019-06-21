@@ -5,7 +5,7 @@ import macdao.parkinglot.adapter.mem.MemParkingRobotRepository;
 import macdao.parkinglot.domain.ParkingLotRepository;
 import macdao.parkinglot.domain.ParkingRobotRepository;
 import macdao.parkinglot.domain.model.*;
-import macdao.parkinglot.domain.service.RobotFinder;
+import macdao.parkinglot.domain.service.ParkingLotFinder;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,9 +26,9 @@ public class AppTest {
         parkingLotRepository.save(parkingLot1);
         parkingLotRepository.save(parkingLot2);
 
-        final RobotFinder robotFinder = new RobotFinder(parkingLotRepository, parkingRobotRepository);
+        final ParkingLotFinder parkingLotFinder = new ParkingLotFinder(parkingLotRepository, parkingRobotRepository);
 
-        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(parkingLotRepository, robotFinder);
+        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(parkingLotRepository, parkingLotFinder);
         final CarNumber carNumber = new CarNumber("car-number-1");
         final Car car = new Car(carNumber);
 
