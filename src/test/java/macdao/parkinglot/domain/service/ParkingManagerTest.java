@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 
-public class ParkingLotFinderTest {
+public class ParkingManagerTest {
     @Mock
     private ParkingLotRepository parkingLotRepository;
     @Mock
@@ -45,9 +45,9 @@ public class ParkingLotFinderTest {
         when(robot1.getManagedParkingLotIds()).thenReturn(singletonList(parkingLotId));
         when(parkingLotRepository.findById(parkingLotId)).thenReturn(Optional.of(parkingLot));
         when(robot1.find(parkingLot)).thenReturn(Optional.of(parkingLot));
-        final ParkingLotFinder parkingLotFinder = new ParkingLotFinder(parkingLotRepository, parkingRobotRepository);
+        final ParkingManager parkingManager = new ParkingManager(parkingLotRepository, parkingRobotRepository);
 
-        final Optional<ParkingLot> result = parkingLotFinder.find();
+        final Optional<ParkingLot> result = parkingManager.find();
 
         assertThat(result).containsSame(parkingLot);
     }
@@ -61,9 +61,9 @@ public class ParkingLotFinderTest {
         when(parkingLotRepository.findById(parkingLotId)).thenReturn(Optional.of(parkingLot));
         when(robot2.find(parkingLot)).thenReturn(Optional.of(parkingLot));
 
-        final ParkingLotFinder parkingLotFinder = new ParkingLotFinder(parkingLotRepository, parkingRobotRepository);
+        final ParkingManager parkingManager = new ParkingManager(parkingLotRepository, parkingRobotRepository);
 
-        final Optional<ParkingLot> result = parkingLotFinder.find();
+        final Optional<ParkingLot> result = parkingManager.find();
 
         assertThat(result).containsSame(parkingLot);
     }

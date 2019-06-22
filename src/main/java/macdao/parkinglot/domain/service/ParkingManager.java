@@ -9,11 +9,11 @@ import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 @Service
-public class ParkingLotFinder {
+public class ParkingManager {
     private final ParkingLotRepository parkingLotRepository;
     private final ParkingRobotRepository parkingRobotRepository;
 
-    public ParkingLotFinder(ParkingLotRepository parkingLotRepository, ParkingRobotRepository parkingRobotRepository) {
+    public ParkingManager(ParkingLotRepository parkingLotRepository, ParkingRobotRepository parkingRobotRepository) {
         this.parkingLotRepository = parkingLotRepository;
         this.parkingRobotRepository = parkingRobotRepository;
     }

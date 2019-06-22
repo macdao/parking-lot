@@ -3,7 +3,7 @@ package macdao.parkinglot.application;
 import macdao.parkinglot.domain.model.parkinglot.ParkingLotRepository;
 import macdao.parkinglot.domain.model.parkinglot.ParkingLot;
 import macdao.parkinglot.domain.model.parkinglot.Ticket;
-import macdao.parkinglot.domain.service.ParkingLotFinder;
+import macdao.parkinglot.domain.service.ParkingManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -23,15 +23,15 @@ public class ParkingApplicationServiceTest {
     @Mock
     private ParkingLot parkingLot;
     @Mock
-    private ParkingLotFinder parkingLotFinder;
+    private ParkingManager parkingManager;
 
     @Test
     public void park_should_to_found_robot() {
-        when(parkingLotFinder.find()).thenReturn(Optional.of(parkingLot));
+        when(parkingManager.find()).thenReturn(Optional.of(parkingLot));
         final Ticket ticket = mock(Ticket.class);
         when(parkingLot.park(any())).thenReturn(ticket);
 
-        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(parkingLotRepository, parkingLotFinder);
+        final ParkingApplicationService parkingApplicationService = new ParkingApplicationService(parkingLotRepository, parkingManager);
 
         final ParkCommand parkCommand = new ParkCommand();
         parkCommand.setCarNumber("car-number-1");

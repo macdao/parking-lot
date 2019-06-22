@@ -1,0 +1,17 @@
+@startuml
+skinparam Shadowing false
+
+ParkingManager "1" *--> "*" ParkingRobot : contains
+interface ParkingRobot
+ParkingRobot <|-- SimpleParkingRobot
+ParkingRobot <|-- SmartParkingRobot
+SimpleParkingRobot "1" *--> "*" ParkingLot : contains
+SmartParkingRobot "1" *--> "*" ParkingLot : contains
+
+ParkingManager : park()
+ParkingRobot : park()
+SimpleParkingRobot : park()
+SmartParkingRobot : park()
+ParkingLot : park()
+
+@enduml

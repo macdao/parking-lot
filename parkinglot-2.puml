@@ -1,0 +1,18 @@
+@startuml
+skinparam Shadowing false
+
+ParkingManager *--> ParkingRobotRepository : contains
+ParkingManager *--> ParkingLotRepository : contains
+ParkingRobotRepository --> ParkingRobot : find
+ParkingLotRepository --> ParkingLot : find
+ParkingRobot --> ParkingLotId : mnagedParkingLotIds
+ParkingRobot --> ParkingLot : park
+
+ParkingManager : park()
+ParkingRobotRepository : find()
+ParkingLotRepository : find()
+ParkingRobot : getManagedParkingLotIds()
+ParkingRobot : park()
+ParkingLot : park()
+
+@enduml
